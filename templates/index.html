@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>EduChatBot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #f0f4f8;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+    }
+
+    .messages {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+
+    .message {
+      margin: 0.5rem 0;
+    }
+
+    .user {
+      text-align: right;
+      color: #2c3e50;
+    }
+
+    .bot {
+      text-align: left;
+      color: #2980b9;
+    }
+
+    input, button {
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+    }
+
+    input {
+      width: 80%;
+      margin-right: 1%;
+      background: #ecf0f1;
+    }
+
+    button {
+      background: #2980b9;
+      color: white;
+      cursor: pointer;
+      width: 18%;
+    }
+
+    button:hover {
+      background: #3498db;
+    }
+  </style>
+</head>
+<body>
+  <h1>WikiChatBot 🧠</h1>
+  <div class="chat-container">
+    <div class="messages" id="chat"></div>
+    <div>
+      <input type="text" id="input" placeholder="Escribe tu mensaje..." />
+      <button onclick="enviar()">Enviar</button>
+    </div>
+  </div>
+
+  <script>
+    async function enviar() {
+      const input = document.getElementById('input');
+      const chat = document.getElementById('chat');
+      const mensaje = input.value.trim();
+      if (!mensaje) return;
+
+      chat.innerHTML += `<div class="message user"><strong>Tú:</strong> ${mensaje}</div>`;
+      input.value = '';
+
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ mensaje })
+      });
+
+      const data = await res.json();
+      chat.innerHTML += `<div class="message bot"><strong>EduChatBot:</strong> ${data.respuesta}</div>`;
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    document.getElementById('input').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') enviar();
+    });
+  </script>
+</body>
+</html>

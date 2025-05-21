@@ -1,0 +1,39 @@
+La inteligencia artificial (IA) es la disciplina que estudia cómo construir programas capaces de realizar tareas que requieren inteligencia humana. Estas tareas incluyen el razonamiento, la comprensión del lenguaje natural, la visión por computadora y el aprendizaje automático.
+
+Alan Turing fue un matemático británico que propuso la máquina de Turing, una idea fundamental en la informática moderna. También ayudó a descifrar los códigos nazis durante la Segunda Guerra Mundial.
+
+El sistema solar está formado por el Sol y todos los cuerpos celestes que orbitan a su alrededor, incluyendo ocho planetas: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno.
+
+La fotosíntesis es el proceso mediante el cual las plantas transforman la luz solar en energía química utilizando dióxido de carbono y agua, liberando oxígeno como subproducto.
+
+La capital de España es Madrid, una ciudad conocida por su patrimonio cultural, su gastronomía y su vida nocturna. Allí se encuentran el Palacio Real, el Museo del Prado y la Puerta del Sol.
+
+Python es un lenguaje de programación interpretado, multiparadigma y de alto nivel, muy utilizado en desarrollo web, ciencia de datos, inteligencia artificial y automatización de tareas.
+
+La Segunda Guerra Mundial fue un conflicto militar global que tuvo lugar entre 1939 y 1945, involucrando a la mayoría de las naciones del mundo. Terminó con la derrota de las Potencias del Eje.
+
+La capa de ozono es una región de la estratósfera terrestre que contiene una alta concentración de ozono. Su función es absorber la mayor parte de la radiación ultravioleta proveniente del Sol.
+
+El Quijote es una novela escrita por Miguel de Cervantes Saavedra y publicada a principios del siglo XVII. Es considerada una de las obras más importantes de la literatura universal.
+
+La energía renovable es aquella que se obtiene de fuentes naturales inagotables, como la energía solar, eólica, hidroeléctrica, geotérmica y de biomasa. Estas fuentes ayudan a combatir el cambio climático.
+
+El cuerpo humano está compuesto por sistemas como el sistema nervioso, el sistema respiratorio, el sistema digestivo, el sistema muscular y el sistema óseo.
+
+El teorema de Pitágoras establece que en un triángulo rectángulo, el cuadrado de la hipotenusa es igual a la suma de los cuadrados de los catetos: a² + b² = c².
+
+El ajedrez es un juego de estrategia para dos personas en el que cada jugador comienza con 16 piezas. El objetivo es dar jaque mate al rey del oponente.
+
+El Internet de las cosas (IoT) se refiere a la red de dispositivos físicos conectados entre sí a través de Internet, permitiendo la recolección e intercambio de datos en tiempo real.
+
+Leonardo da Vinci fue un polímata del Renacimiento italiano. Fue pintor, inventor, anatomista, ingeniero y científico. Su obra más famosa es La Gioconda (Mona Lisa).
+
+Los volcanes son estructuras geológicas por donde emerge magma desde el interior de la Tierra hacia la superficie. Algunos volcanes famosos son el Vesubio, el Etna y el Krakatoa.
+
+La Declaración Universal de los Derechos Humanos fue adoptada por la ONU en 1948 y establece los derechos fundamentales que deben protegerse para todos los seres humanos.
+
+La tabla periódica es una organización de los elementos químicos basada en sus propiedades. Fue desarrollada por Dmitri Mendeléyev en 1869.
+
+La atmósfera terrestre se compone principalmente de nitrógeno (78%) y oxígeno (21%), además de otros gases como argón y dióxido de carbono.
+
+El cambio climático es una alteración significativa y duradera en los patrones del clima mundial, principalmente debido al aumento de gases de efecto invernadero producidos por actividades humanas.
