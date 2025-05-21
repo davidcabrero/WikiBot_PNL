@@ -6,14 +6,14 @@ import wikipedia
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Configurar Wikipedia en español
-wikipedia.set_lang("es")
+from textblob import TextBlob
+from transformers import MarianMTModel, MarianTokenizer
 
 # Descargar recursos de NLTK
 nltk.download('punkt')
 nltk.download('wordnet')
 
-# 1. Tokenización
+# === Carga y Preprocesado ===
 
 def preprocesar(fichero):
     with open(fichero, 'r', errors='ignore') as f:
@@ -31,7 +31,7 @@ def tokenizar_palabras(datos):
 frases_tokens = tokenizar_frases(datos_prep)
 palabras_tokens = tokenizar_palabras(datos_prep)
 
-# 2. Lematización
+# === Lematización ===
 
 def lanzarLemitizador():
     return nltk.stem.WordNetLemmatizer()
@@ -49,19 +49,27 @@ signos_punt_a_quitar = obtener_signos_puntuacion()
 def LemNormalizada(texto):
     return LemitizarTokens(nltk.word_tokenize(texto.lower().translate(signos_punt_a_quitar)), mi_lemitizador)
 
-# 3. Saludos
+# === Saludos ===
 
-SALUDOS_IN = ["hola", "buenas", "qué tal", "buenos días", "hey", "saludos"]
-SALUDOS_OUT = ["Hola", "Hola, ¿cómo estás?", "¡Saludos!", "Encantado de ayudarte", "¿En qué te puedo ayudar?"]
+SALUDOS_IN_es = ["hola", "buenas", "qué tal", "buenos días", "hey", "saludos"]
+SALUDOS_OUT_es = ["Hola", "Hola, ¿cómo estás?", "¡Saludos!", "Encantado de ayudarte", "¿En qué te puedo ayudar?"]
 
-def generar_saludo(frase):
+SALUDOS_IN_en = ["hello", "hey", "how are you?", "good morning", "hi", "What's up?"]
+SALUDOS_OUT_en = ["Hello", "Hello, How are you?", "¡Hi, there!", "Nice to help you", "How can I help you?"]
+
+SALUDOS_IN_ast = ["hola", "bones", "qué tal", "bonos díes", "hey", "bienveníu"]
+SALUDOS_OUT_ast = ["Hola", "Hola, ¿cómo tas?", "¡Saludos!", "Encantau d'ayudate'", "¿En qué pueu ayudate güei?"]
+
+def generar_saludo(frase, idioma):
     for palabra in frase.split():
-        if palabra.lower() in SALUDOS_IN:
-            return random.choice(SALUDOS_OUT)
+        if palabra.lower() in SALUDOS_IN_es:
+            return random.choice(SALUDOS_OUT_es)
 
-# 4. Búsqueda en Wikipedia
+# === Wikipedia ===
 
-def buscar_wikipedia(pregunta):
+def buscar_wikipedia(pregunta, idioma="es"):
+    # Configuramos el idioma de Wikipedia según la elección del usuario
+    wikipedia.set_lang(idioma)
     try:
         resultado = wikipedia.summary(pregunta, sentences=2)
         return resultado
@@ -72,13 +80,11 @@ def buscar_wikipedia(pregunta):
     except Exception as e:
         return "Error al buscar en Wikipedia."
 
-# 5. Generar Respuesta
+# === TF-IDF ===
 
-def responder(respuesta_usuario):
-    # Intentar con Wikipedia primero
-    resultado_wiki = buscar_wikipedia(respuesta_usuario)
+def responder(respuesta_usuario, idioma):
+    resultado_wiki = buscar_wikipedia(respuesta_usuario, idioma)
     if "no encontré nada" in resultado_wiki.lower() or "ambigua" in resultado_wiki.lower() or "error" in resultado_wiki.lower():
-        # Respuesta basada en TF-IDF si Wikipedia no ayuda
         bot_respuesta = ''
         frases_tokens.append(respuesta_usuario)
         tfidfVec = TfidfVectorizer(tokenizer=LemNormalizada, stop_words='english')
@@ -97,31 +103,32 @@ def responder(respuesta_usuario):
     else:
         return resultado_wiki
 
-# 6. Chatbot principal desde la app
-def chatbot_general(mensaje):
-    if mensaje.lower() == 'gracias':
-        return "¡De nada!"
-    elif generar_saludo(mensaje) is not None:
-        return generar_saludo(mensaje)
+# === Análisis de Sentimiento ===
+
+def analizar_sentimiento(texto):
+    blob = TextBlob(texto)
+    polaridad = blob.sentiment.polarity
+    if polaridad > 0:
+        return "positivo"
+    elif polaridad < 0:
+        return "negativo"
     else:
-        return responder(mensaje)
+        return "neutral"
 
-# Para pruebas por consola
-def chatbot_console():
-    print("WikiBot: Me llamo WikiBot. ¡Pregúntame lo que quieras!")
-    print("Escribe 'salir' para terminar la conversación.")
-    while True:
-        info_usuario = input("TÚ> ").lower()
-        if info_usuario == 'salir':
-            print("WikiBot> ¡Hasta luego!")
-            break
-        elif info_usuario == 'gracias':
-            print("WikiBot> ¡De nada!")
-        elif generar_saludo(info_usuario) is not None:
-            print("WikiBot> " + generar_saludo(info_usuario))
-        else:
-            print("WikiBot> " + responder(info_usuario))
 
-# Para probar directamente este script
-if __name__ == "__main__":
-    chatbot_console()
+# === Chatbot general ===
+
+def chatbot_general(mensaje, idioma):
+    if mensaje.lower() == 'gracias':
+        respuesta = "¡De nada!"
+    elif generar_saludo(mensaje, idioma) is not None:
+        respuesta = generar_saludo(mensaje, idioma)
+    else:
+        respuesta = responder(mensaje, idioma)
+
+    sentimiento = analizar_sentimiento(mensaje)
+
+    return {
+        "respuesta": respuesta,
+        "sentimiento": sentimiento
+    }
