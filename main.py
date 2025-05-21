@@ -61,9 +61,20 @@ SALUDOS_IN_ast = ["hola", "bones", "qué tal", "bonos díes", "hey", "bienveníu
 SALUDOS_OUT_ast = ["Hola", "Hola, ¿cómo tas?", "¡Saludos!", "Encantau d'ayudate'", "¿En qué pueu ayudate güei?"]
 
 def generar_saludo(frase, idioma):
+
+    if idioma == "es":
+        SALUDOS_IN = SALUDOS_IN_es
+        SALUDOS_OUT = SALUDOS_OUT_es
+    elif idioma == "en":
+        SALUDOS_IN = SALUDOS_IN_en
+        SALUDOS_OUT = SALUDOS_OUT_en
+    elif idioma == "ast":
+        SALUDOS_IN = SALUDOS_IN_ast
+        SALUDOS_OUT = SALUDOS_OUT_ast
+        
     for palabra in frase.split():
-        if palabra.lower() in SALUDOS_IN_es:
-            return random.choice(SALUDOS_OUT_es)
+        if palabra.lower() in SALUDOS_IN:
+            return random.choice(SALUDOS_OUT)
 
 # === Wikipedia ===
 
